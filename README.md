@@ -1,50 +1,27 @@
-# React + TypeScript + Vite
+# 🔁 Skill Swap Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🧩 Problem Statement
 
-Currently, two official plugins are available:
+Build a **Skill Swap Platform** — a mini application that enables users to list their skills and request others in return.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Key Features:
+- User Profiles: name, location (optional), profile photo (optional), public/private toggle
+- List of skills offered and skills wanted
+- Availability (e.g., weekends, evenings)
+- Search users by skill (e.g., “Photoshop”)
+- Request & accept/reject swap offers
+- View current and pending swaps
+- Delete unaccepted swap requests
+- Ratings or feedback after a swap
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 👥 Team Name
 
-- Configure the top-level `parserOptions` property like this:
+**7MOD3**
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+---
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## 📫 Contact
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+**Email:** [suryanshsingh0987@gmail.com](mailto:suryanshsingh0987@gmail.com)

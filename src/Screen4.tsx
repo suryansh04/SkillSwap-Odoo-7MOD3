@@ -117,8 +117,8 @@ export default function Screen4({ user, feedbacks, yourSkills }: UserProfileProp
                 )}
               </div>
               {user.averageRating && (
-                <p className="text-sm text-yellow-600">
-                  ⭐ {user.averageRating.toFixed(1)} ({user.totalRatings} ratings)
+                <p className="text-sm text-black-600">
+                  ★ {user.averageRating.toFixed(1)} ({user.totalRatings} ratings)
                 </p>
               )}
             </div>

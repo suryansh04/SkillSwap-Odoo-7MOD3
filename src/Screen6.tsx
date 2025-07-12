@@ -21,43 +21,43 @@ import { UserCircle2, Home } from "lucide-react"
 
 interface SwapRequest {
   id: string
-  fromUserName: string
-  fromUserPhoto?: string
-  offeredSkill: string
-  wantedSkill: string
-  message: string
-  status: "pending" | "accepted" | "rejected"
+  userName: string
+  userPhoto?: string
+  rating: number
+  skillOffered: string
+  skillWanted: string
+  status: "Pending" | "Accepted" | "Rejected"
 }
 
 const mockRequests: SwapRequest[] = [
   {
     id: "1",
-    fromUserName: "Marc Demo",
-    fromUserPhoto: "",
-    offeredSkill: "JavaScript",
-    wantedSkill: "Photoshop",
-    message: "Hey, I can teach you JavaScript if you help me with Photoshop!",
-    status: "pending",
+    userName: "Marc Demo",
+    userPhoto: "",
+    rating: 4.5,
+    skillOffered: "JavaScript",
+    skillWanted: "Photoshop",
+    status: "Pending",
   },
   {
     id: "2",
-    fromUserName: "Jane Smith",
-    fromUserPhoto: "",
-    offeredSkill: "Figma",
-    wantedSkill: "Excel",
-    message: "Would love to swap design tips for spreadsheet help.",
-    status: "rejected",
+    userName: "Jane Smith",
+    userPhoto: "",
+    rating: 3.8,
+    skillOffered: "Figma",
+    skillWanted: "Excel",
+    status: "Rejected",
   },
 ]
 
 export default function Screen6() {
   const [search, setSearch] = useState("")
-  const [statusFilter, setStatusFilter] = useState("all")
+  const [statusFilter, setStatusFilter] = useState("All")
 
   const filteredRequests = mockRequests.filter((req) => {
     return (
-      (statusFilter === "all" || req.status === statusFilter) &&
-      req.fromUserName.toLowerCase().includes(search.toLowerCase())
+      (statusFilter === "All" || req.status === statusFilter) &&
+      req.userName.toLowerCase().includes(search.toLowerCase())
     )
   })
 
@@ -75,26 +75,26 @@ export default function Screen6() {
           </Button>
           <Avatar>
             <AvatarImage src="/user.jpg" alt="User" />
-            <AvatarFallback>U</AvatarFallback>
+            <AvatarFallback></AvatarFallback>
           </Avatar>
         </div>
       </div>
 
       {/* Filters */}
       <div className="flex flex-col md:flex-row items-center gap-4">
-        <Select onValueChange={setStatusFilter} defaultValue="all">
+        <Select onValueChange={setStatusFilter} defaultValue="All">
           <SelectTrigger className="w-full md:w-[200px] rounded-md bg-white">
             <SelectValue placeholder="Filter by status" />
           </SelectTrigger>
           <SelectContent className="bg-white">
-            <SelectItem value="all">All</SelectItem>
-            <SelectItem value="pending">Pending</SelectItem>
-            <SelectItem value="accepted">Accepted</SelectItem>
-            <SelectItem value="rejected">Rejected</SelectItem>
+            <SelectItem value="All">All</SelectItem>
+            <SelectItem value="Pending">Pending</SelectItem>
+            <SelectItem value="Accepted">Accepted</SelectItem>
+            <SelectItem value="Rejected">Rejected</SelectItem>
           </SelectContent>
         </Select>
         <Input
-          placeholder="Search by user name"
+          placeholder="Search by name"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="w-full md:w-[300px] rounded-md bg-white"
@@ -108,18 +108,19 @@ export default function Screen6() {
             <CardHeader className="flex flex-row items-center justify-between">
               <div className="flex items-center gap-4">
                 <Avatar>
-                  <AvatarImage src={req.fromUserPhoto || "/user.jpg"} />
-                  <AvatarFallback>{req.fromUserName[0]}</AvatarFallback>
+                  <AvatarImage src={req.userPhoto || "/user.jpg"} />
+                  <AvatarFallback>{req.userName[0]}</AvatarFallback>
                 </Avatar>
                 <div>
-                  <CardTitle className="text-base">{req.fromUserName}</CardTitle>
+                  <CardTitle className="text-base">{req.userName}</CardTitle>
+                  <p className="text-xs text-gray-600">Rating: {req.rating}/5</p>
                 </div>
               </div>
               <span
-                className={`text-sm font-medium capitalize ${
-                  req.status === "pending"
+                className={`text-sm font-medium ${
+                  req.status === "Pending"
                     ? "text-yellow-500"
-                    : req.status === "accepted"
+                    : req.status === "Accepted"
                     ? "text-green-600"
                     : "text-red-600"
                 }`}
@@ -127,35 +128,33 @@ export default function Screen6() {
                 {req.status}
               </span>
             </CardHeader>
-            <CardContent className="space-y-3">
-              <div className="flex justify-between items-center text-sm">
-                <span className="font-medium">Offered Skill:</span>
-                <span>{req.offeredSkill}</span>
-              </div>
-              <div className="flex justify-between items-center text-sm">
-                <span className="font-medium">Wanted Skill:</span>
-                <span>{req.wantedSkill}</span>
-              </div>
-              <div className="text-sm text-gray-700 border rounded p-2 bg-muted">
-                {req.message}
-              </div>
-              {req.status === "pending" && (
-                <div className="flex gap-2 pt-2">
-                  <Button
-                    size="sm"
-                    className="rounded-md bg-green-600 text-white hover:bg-green-700"
-                  >
-                    Accept
-                  </Button>
-                  <Button
-                    size="sm"
-                    className="rounded-md bg-red-600 text-white hover:bg-red-700"
-                  >
-                    Reject
-                  </Button>
-                </div>
-              )}
-            </CardContent>
+            <CardContent className="space-y-2">
+  <div className="flex justify-between items-center text-sm">
+    <span className="font-medium">Skill Offered:</span>
+    <span>{req.skillOffered}</span>
+  </div>
+  <div className="flex justify-between items-center text-sm">
+    <span className="font-medium">Skill Wanted:</span>
+    <span>{req.skillWanted}</span>
+  </div>
+  {req.status === "Pending" && (
+    <div className="flex gap-2 pt-2">
+      <Button
+        size="sm"
+        className="rounded-md bg-white text-black border hover:bg-gray-100"
+      >
+        Accept
+      </Button>
+      <Button
+        size="sm"
+        className="rounded-md bg-black text-white hover:bg-gray-900"
+      >
+        Reject
+      </Button>
+    </div>
+  )}
+</CardContent>
+
           </Card>
         ))}
       </div>

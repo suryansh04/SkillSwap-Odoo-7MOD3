@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./recommender.css";
 // @ts-expect-error: Importing JSX file without type declaration
 import AdminLogin from "../admin/AdminLogin";
@@ -6,14 +6,25 @@ import AdminLogin from "../admin/AdminLogin";
 import AdminDashboard from "../admin/AdminDashboard";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-type Match = {
-  name: string;
-  email: string;
-  similarity: number;
-  availability: string;
-  skillsOffered: string[];
-  error?: string;
-} | null;
+// Use a discriminated union for better type safety
+type Match =
+  | {
+      name: string;
+      email: string;
+      similarity: number;
+      availability: string;
+      skillsOffered: string[];
+      error?: undefined;
+    }
+  | {
+      error: string;
+      name?: undefined;
+      email?: undefined;
+      similarity?: undefined;
+      availability?: undefined;
+      skillsOffered?: undefined;
+    }
+  | null;
 
 const RecommenderApp = () => {
   const [loading, setLoading] = useState(false);
@@ -26,13 +37,9 @@ const RecommenderApp = () => {
       const response = await fetch("http://localhost:8000/find-match");
       const data = await response.json();
       setMatch(data);
-    } catch (error) {
+    } catch (error: unknown) {
+      console.error(error);
       setMatch({
-        name: "",
-        email: "",
-        similarity: 0,
-        availability: "",
-        skillsOffered: [],
         error: "Failed to fetch match.",
       });
     }
@@ -47,7 +54,7 @@ const RecommenderApp = () => {
     return <div>Match found: {match.name}</div>;
   }
 
-  if (match?.error) {
+  if (match && match.error) {
     return <div>Error: {match.error}</div>;
   }
 

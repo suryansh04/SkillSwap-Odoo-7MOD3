@@ -1,35 +1,53 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from "react"
+import Screen4 from "./Screen4"
+import Screen6 from './Screen6'
 
 function App() {
-  const [count, setCount] = useState(0)
+  // Example user matching your Mongoose User Schema
+  const userData = {
+    id: "userB",
+    name: "Your Name",
+    email: "yourname@example.com",
+    location: "Location",
+    profilePhotoUrl: "/avatar.png",
+    skillsOffered: ["React", "Springboot", "UI/UX Design"],
+    skillsWanted: ["Figma", "PowerPoint", "PremierePro"],
+    availability: "weekends",
+    profileVisibility: "Public",
+    averageRating: 4.8,
+    totalRatings: 5
+  }
+
+  // Mock feedback matching Feedback Schema
+  const feedbacks = [
+    {
+      fromUser: "Alice",
+      rating: 5,
+      feedback: "Fantastic collaboration!",
+      createdAt: "2024-05-10T12:00:00Z"
+    },
+    {
+      fromUser: "Bob",
+      rating: 4,
+      feedback: "Very helpful and skilled.",
+      createdAt: "2024-05-08T09:30:00Z"
+    },
+    {
+      fromUser: "Charlie",
+      rating: 5,
+      feedback: "Great experience swapping skills!",
+      createdAt: "2024-05-05T15:45:00Z"
+    }
+  ]
+
+  const mySkills = ["Photoshop", "Lightroom", "Premiere Pro"]
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div>
+      <Screen4 user={userData} feedbacks={feedbacks} yourSkills={mySkills} />
+      {/* <Screen6 /> */}
+    </div>
   )
 }
 
-export default App
+export default App;

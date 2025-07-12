@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -31,6 +32,7 @@ import {
 
 import axios from "../api/axiosConfig";
 export default function ProfileForm() {
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const [availability, setAvailability] = useState("");
@@ -57,6 +59,7 @@ export default function ProfileForm() {
       const response = await axios.post("/user/save", profileData);
       console.log("✅ Profile saved:", response.data);
       alert("Profile saved successfully!");
+      navigate('/');
     } catch (error) {
       console.error("❌ Error saving profile:", error);
       alert("Failed to save profile");

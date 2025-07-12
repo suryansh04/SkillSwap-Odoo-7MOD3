@@ -63,3 +63,16 @@ exports.getUserById = async (req, res) => {
     res.status(500).json({ error: "Failed to fetch user profile" });
   }
 };
+
+// GET /user/public-profiles
+exports.getAllPublicProfiles = async (req, res) => {
+  try {
+    const profiles = await User.find({ profileVisibility: "public" }).select(
+      "name location profilePhotoUrl skillsOffered skillsWanted availability averageRating"
+    );
+    res.json(profiles);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
